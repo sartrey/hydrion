@@ -12,44 +12,54 @@ body {
 .wrapper {
   margin: 1em;
   padding: .5em;
-  background: #f3f3f3;
-  border-radius: 5px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  background: #f9f9f9;
+  border-radius: 1px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
   -webkit-app-region: drag;
 }
 
 .header {
   display: flex;
-  margin-bottom: 5px;
 }
 
 .header h1 {
   flex: 1;
   font-size: 16px;
   font-weight: normal;
-  color: #666;
   cursor: default;
   -webkit-app-region: drag;
 }
 
-.header a {
+.header h1 a {
+  color: #666;
+  text-decoration: none;
+}
+
+.header ul {
+  flex: 0 auto;
   display: block;
-  flex: 0;
-  font-size: 12px;
-  padding: 1px 6px;
-  border-radius: 4px;
-  transition: .3s;
+  list-style-type: none;
+}
+
+.header ul > li {
+  display: inline-block;
+}
+
+.header ul > li > a {
+  display: block;
+  width: 24px;
+  height: 24px;
+  transition: .4s;
   cursor: pointer;
-  background: #ccc;
+  color: #ccc;
 }
 
-.header a:hover {
-  color: #fff;
-  background: #666;
+.header ul > li > a:hover {
+  color: #39f;
 }
 
-.header a:active {
-  box-shadow: 0 0 3px rgba(0,0,0,0.5) inset;
+.header ul > li > a:active {
+  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
 }
 
 .search {
@@ -60,22 +70,21 @@ body {
 .search input {
   display: block;
   font-size: 18px;
-  font-weight: bold;
   padding: 5px;
   outline: none;
-  border-radius: 4px;
-  border: 1px solid #aaa;
+  border-radius: 1px;
+  border: 2px solid #ccc;
   transition: .3s;
 }
 
 .search input:hover {
-  border-color: #999;
-  box-shadow: 0 0 1px rgba(0,0,0,0.5) inset;
+  border-color: #bbb;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
 }
 
 .search input:focus {
-  border-color: #777;
-  box-shadow: 0 0 1px rgba(0,0,0,0.75) inset;
+  border-color: #aaa;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
 }
 
 .search .label {
@@ -92,5 +101,5 @@ body {
 
 .search .label .stat {
   flex: 0;
-  color: #79f;
+  color: #39f;
 }
