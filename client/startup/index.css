@@ -11,7 +11,7 @@ body {
 
 .wrapper {
   margin: 1em;
-  padding: .5em;
+  padding: .5em .75em;
   background: #f9f9f9;
   border-radius: 1px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -58,10 +58,6 @@ body {
   color: #39f;
 }
 
-.header ul > li > a:active {
-  box-shadow: 0 0 2px rgba(0,0,0,0.5) inset;
-}
-
 .search {
   display: flex;
   flex-direction: column;
@@ -83,7 +79,7 @@ body {
 }
 
 .search input:focus {
-  border-color: #aaa;
+  border-color: #666;
   box-shadow: 0 0 6px rgba(0,0,0,0.3);
 }
 

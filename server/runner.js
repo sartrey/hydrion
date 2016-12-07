@@ -2,16 +2,16 @@ const child_process = require('child_process')
 const fs = require('fs')
 const path = require('path')
 
+const {
+  shell
+} = require('electron')
+
 const assist = require('./assist.js')
 const config = require('./config.js')
 
 function loadCommands () {
-  var dir = path.join(process.env.HOME, '.electron')
-  if (!assist.isPathExists(dir)) {
-    fs.mkdirSync(dir)
-  }
-
-  var p_cmdset = path.join(dir, 'cmdset.json')
+  var root = assist.getDeployRoot()
+  var p_cmdset = path.join(root, 'cmdset.json')
   console.log('load cmdset', p_cmdset)
   try {
     return JSON.parse(fs.readFileSync(p_cmdset, 'utf8'))
@@ -50,7 +50,7 @@ Runner.prototype = {
       if (command.host === 'electron') {
         if (config.host.electron) {
           child_process.execSync(
-            'electron ' + command.exec, 
+            'electron ' + command.exec,
             { cwd: config.host.electron }
           )
           return { state: true, reply: 'command invoked' }
@@ -66,11 +66,12 @@ Runner.prototype = {
         }
       }
     } else {
-      // todo: refactor, not use name
       if (config.flag.execWhenLinkNotFound) {
-        child_process.execSync(name)
+        shell.openExternal(name, function (error) {
+          console.log(error)
+        })
         return { state: true, reply: 'command invoked' }
-      } 
+      }
     }
     return { state: false, error: 'command not found' }
   }

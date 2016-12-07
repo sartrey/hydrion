@@ -17,12 +17,8 @@ function loadConfig () {
   if (config.load) return config
 
   // load config
-  var dir = path.join(process.env.HOME, '.electron')
-  if (!assist.isPathExists(dir)) {
-    fs.mkdirSync(dir)
-  }
-
-  var p_config = path.join(dir, 'config.json')
+  var root = assist.getDeployRoot()
+  var p_config = path.join(root, 'config.json')
   console.log('load config', p_config)
   try {
     var o = JSON.parse(fs.readFileSync(p_config, 'utf8'))

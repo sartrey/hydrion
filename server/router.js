@@ -21,8 +21,8 @@ module.exports = function createRouter(routes) {
 function Router(routes) {
   this.routes = routes.map(e => {
     return {
-      name: e.name, 
-      path: e.path, 
+      name: e.name,
+      path: e.path,
       only: e.only,
       hwnd: []
     }
@@ -40,8 +40,8 @@ Router.prototype = {
       }
       var meta = require(path.join(route.path, 'index.meta.js'))
       var window = createWindow(
-        meta.define, 
-        'file://' + path.join(route.path, 'index.html'), 
+        meta.define,
+        'file://' + path.join(route.path, 'index.html'),
         meta.binder
       )
       window.on('closed', () => {
@@ -50,5 +50,9 @@ Router.prototype = {
       return window
     }
     return null
+  },
+
+  closeView: function () {
+
   }
 }

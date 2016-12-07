@@ -10,6 +10,14 @@ const router = require('./server/router.js')([
 const runner = require('./server/runner.js')()
 
 app.on('ready', () => {
+  // todo: register global shortcut
+  // todo: ok then hide dock icon
+  // todo: fail then register tray
+  // todo: ok then hide dock icon
+  if (process.platform === 'darwin') {
+    // app.dock.hide()
+  }
+
   router.routeTo('startup')
   global.epii = {
     router, runner
@@ -22,6 +30,7 @@ app.on('window-all-closed', () => {
   }
 })
 
+// only for macOS
 app.on('activate', () => {
   router.routeTo('startup')
 })

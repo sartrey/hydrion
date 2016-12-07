@@ -1,7 +1,9 @@
 const fs = require('fs')
+const path = require('path')
 
 module.exports = {
-  isPathExists
+  isPathExists,
+  getDeployRoot
 }
 
 function isPathExists (p) {
@@ -11,4 +13,12 @@ function isPathExists (p) {
   } catch (error) {
     return false
   }
+}
+
+function getDeployRoot() {
+  var dir = path.join(process.env.HOME, '.hydrion')
+  if (!isPathExists(dir)) {
+    fs.mkdirSync(dir)
+  }
+  return dir
 }

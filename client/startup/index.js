@@ -1,4 +1,7 @@
-const remote = require('electron').remote
+const {
+  shell,
+  remote
+} = require('electron')
 
 window.$ = require('jquery')
 
@@ -19,6 +22,8 @@ function VIEW_updateStat () {
 }
 
 $(document).ready(function () {
+  var bridge = remote.getGlobal('epii')
+
   VIEW_updateHint(hints['how-to-invoke'])
   VIEW_updateStat()
 
@@ -30,12 +35,20 @@ $(document).ready(function () {
       if (!/[a-zA-Z\:\-\.]+/.test(command)) {
         return VIEW_updateHint(hints['invalid-input'])
       }
-      var result = remote.getGlobal('epii').runner.invoke(command)
+      var result = bridge.runner.invoke(command)
       if (result.state) {
         VIEW_updateHint(hints['invoke-done'])
       } else {
         VIEW_updateHint(hints['invoke-halt'], result.error)
       }
     }
+  })
+
+  $('#btn-logo').click(function (event) {
+    shell.openExternal('https://github.com/sartrey/hydrion')
+  })
+
+  $('#btn-close').click(function (event) {
+    remote.getCurrentWindow().close()
   })
 })
