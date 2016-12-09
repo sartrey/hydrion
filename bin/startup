@@ -40,7 +40,12 @@ h_startup() {
   echo "hydrion startup"
 }
 
-HYDRION_SOURCE=$(h_dir)/source
-h_startup $HYDRION_SOURCE
+if [ $1 = "dev" ]; then
+  echo "develop version"
+  h_startup $(pwd)
+else
+  HYDRION_SOURCE=$(h_dir)/source
+  h_startup $HYDRION_SOURCE
+fi
 
 }

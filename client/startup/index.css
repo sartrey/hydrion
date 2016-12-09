@@ -13,7 +13,7 @@ body {
   margin: 1em;
   padding: .5em .75em;
   background: #f9f9f9;
-  border-radius: 1px;
+  border-radius: 3px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
   -webkit-app-region: drag;
 }
