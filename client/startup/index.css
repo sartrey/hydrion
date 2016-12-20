@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-user-select: none;
+  -webkit-app-region: no-drag;
+}
+
+body {
+  font: 400 14px/1.5 "Hiragino Sans GB","WenQuanYi Micro Hei",tahoma,sans-serif;
+}
+
+.wrapper {
+  margin: 1em;
+  padding: .5em .75em;
+  background: #f9f9f9;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  -webkit-app-region: drag;
+}
+
+.header {
+  display: flex;
+}
+
+.header h1 {
+  flex: 1;
+  font-size: 16px;
+  font-weight: normal;
+  cursor: default;
+  -webkit-app-region: drag;
+}
+
+.header h1 a {
+  color: #666;
+  text-decoration: none;
+}
+
+.header ul {
+  flex: 0 auto;
+  display: block;
+  list-style-type: none;
+}
+
+.header ul > li {
+  display: inline-block;
+}
+
+.header ul > li > a {
+  display: block;
+  width: 24px;
+  height: 24px;
+  transition: .4s;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.header ul > li > a:hover {
+  color: #39f;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+}
+
+.search input {
+  display: block;
+  font-size: 18px;
+  padding: 5px;
+  outline: none;
+  border-radius: 1px;
+  border: 2px solid #ccc;
+  transition: .3s;
+}
+
+.search input:hover {
+  border-color: #bcd;
+  box-shadow: 0 0 3px rgba(0,50,250,0.1);
+}
+
+.search input:focus {
+  border-color: #6af;
+  box-shadow: 0 0 6px rgba(0,50,250,0.3);
+}
+
+.search .label {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  margin-top: .5em;
+}
+
+.search .label .hint {
+  flex: 1;
+  color: #666;
+}
+
+.search .label .stat {
+  flex: 0;
+  color: #39f;
+}

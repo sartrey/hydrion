@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+# inspired by NVM
+# https://github.com/creationix/nvm
+
+{ # this ensures the entire script is downloaded #
+
+h_has() {
+  type "$1" > /dev/null 2>&1
+}
+
+h_dir() {
+  echo "$HOME/.hydrion"
+}
+
+h_ver() {
+  echo "1.4.9"
+}
+
+h_get_os() {
+  local H_UNAME
+  H_UNAME="$(command uname -a)"
+  local H_OS
+  case "$H_UNAME" in
+    Linux\ *) H_OS=linux ;;
+    Darwin\ *) H_OS=darwin ;;
+  esac
+  echo $H_OS
+}
+
+h_download() {
+  curl --fail -s -I $1 >/dev/null
+  curl --progress-bar -L -o $2 $1 >/dev/null
+}
+
+h_source() {
+  # 1 for ver, 2 for os
+  echo "https://npm.taobao.org/mirrors/electron/$1/electron-v$1-$2-x64.zip"
+}
+
+h_install_electron() {
+  echo "> install electron"
+  local ELECTRON_SOURCE=$(h_source $(h_ver) $(h_get_os uname))
+  local ELECTRON_TARGET_DIR=$(h_dir)/electron/$(h_ver)
+  local ELECTRON_TARGET="$ELECTRON_TARGET_DIR/electron.zip"
+  echo $ELECTRON_TARGET_DIR
+  echo $ELECTRON_SOURCE
+  mkdir -p $ELECTRON_TARGET_DIR
+  h_download $ELECTRON_SOURCE $ELECTRON_TARGET || {
+    echo >&2 "failed to download electron"
+    return 1
+  }
+  unzip -n $ELECTRON_TARGET -d $ELECTRON_TARGET_DIR >/dev/null
+  rm -f $ELECTRON_TARGET
+}
+
+h_install_hydrion() {
+  echo "> install hydrion"
+  local HYDRION_SOURCE_DIR=$(h_dir)/source
+  rm -rf $HYDRION_SOURCE_DIR
+  mkdir -p $HYDRION_SOURCE_DIR
+  git clone https://github.com/sartrey/hydrion.git $HYDRION_SOURCE_DIR
+  ln -s $HYDRION_SOURCE_DIR/bin/startup /usr/local/bin/hydrion
+}
+
+h_install_electron
+h_install_hydrion
+
+}
