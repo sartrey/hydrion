@@ -1,5 +1,7 @@
 const path = require('path')
-const {BrowserWindow} = require('electron')
+const {
+  BrowserWindow
+} = require('electron')
 
 function createWindow (define, source, binder) {
   var window = new BrowserWindow(define)
@@ -19,11 +21,11 @@ module.exports = function createRouter(routes) {
 }
 
 function Router(routes) {
-  this.routes = routes.map(e => {
+  this.routes = routes.map(function (route) {
     return {
-      name: e.name,
-      path: e.path,
-      only: e.only,
+      name: route.name,
+      path: route.path,
+      only: route.only,
       hwnd: []
     }
   })
@@ -33,7 +35,9 @@ Router.prototype = {
   constructor: Router,
 
   routeTo: function (name) {
-    var route = this.routes.find(e => e.name === name)
+    var route = this.routes.find(function (e) {
+      return e.name === name
+    })
     if (route) {
       if (route.only && route.hwnd.length > 0) {
         return route.hwnd[0]
@@ -44,12 +48,12 @@ Router.prototype = {
         'file://' + path.join(route.path, 'index.html'),
         meta.binder
       )
-      window.on('closed', () => {
+      route.hwnd.push(window)
+      window.on('closed', function () {
         route.hwnd.splice(route.hwnd.indexOf(window), 1)
       })
       return window
     }
-    return null
   },
 
   closeView: function () {

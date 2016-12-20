@@ -1,5 +1,8 @@
 const path = require('path')
-const {app} = require('electron')
+const {
+  app,
+  globalShortcut
+} = require('electron')
 
 const config = require('./server/config.js')
 const router = require('./server/router.js')([
@@ -10,18 +13,28 @@ const router = require('./server/router.js')([
 const runner = require('./server/runner.js')()
 
 app.on('ready', () => {
-  // todo: register global shortcut
-  // todo: ok then hide dock icon
-  // todo: fail then register tray
-  // todo: ok then hide dock icon
-  if (process.platform === 'darwin') {
-    // app.dock.hide()
+  // init global api
+  global.epii = { router, runner }
+
+  // register global shortcut
+  var result = globalShortcut.register('Super+Enter', function () {
+    router.routeTo('startup')
+  })
+  if (!result) {
+    console.log('failed to register global shortcut')
   }
 
-  router.routeTo('startup')
-  global.epii = {
-    router, runner
+  // todo: register tray
+  if (process.platform === 'darwin') {
+    app.dock.hide()
   }
+
+  // show startup view
+  router.routeTo('startup')
+})
+
+app.on('will-quit', function () {
+  globalShortcut.unregisterAll()
 })
 
 app.on('window-all-closed', () => {

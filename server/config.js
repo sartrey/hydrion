@@ -1,11 +1,17 @@
 const fs = require('fs')
 const path = require('path')
 
+const {
+  app
+} = require('electron')
+
 const assist = require('./assist.js')
 
 const config = {
   load: false,
-  host: {},
+  host: {
+    electron: app.getPath('exe')
+  },
   flag: {
     execWhenHostNotFound: true,
     execWhenLinkNotFound: true
@@ -22,8 +28,8 @@ function loadConfig () {
   console.log('load config', p_config)
   try {
     var o = JSON.parse(fs.readFileSync(p_config, 'utf8'))
-    config.host = o.host
-    config.flag = o.flag
+    config.host = Object.assign({}, config.host, o.host || {})
+    config.flag = Object.assign({}, config.flag, o.flag || {})
     config.load = true
   } catch (error) {
     console.log('fail to load config, try to rewrite one')

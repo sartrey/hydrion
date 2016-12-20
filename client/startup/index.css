@@ -74,13 +74,13 @@ body {
 }
 
 .search input:hover {
-  border-color: #bbb;
-  box-shadow: 0 0 3px rgba(0,0,0,0.1);
+  border-color: #bcd;
+  box-shadow: 0 0 3px rgba(0,50,250,0.1);
 }
 
 .search input:focus {
-  border-color: #666;
-  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+  border-color: #6af;
+  box-shadow: 0 0 6px rgba(0,50,250,0.3);
 }
 
 .search .label {

@@ -27,10 +27,12 @@ $(document).ready(function () {
   VIEW_updateHint(hints['how-to-invoke'])
   VIEW_updateStat()
 
+  $('.input').focus()
   $('.input').keyup(function (event) {
     VIEW_updateHint(hints['how-to-invoke'])
     VIEW_updateStat()
     if (event.which === 13) {
+      $('.input').blur()
       var command = $('.input').val()
       if (!/[a-zA-Z\:\-\.]+/.test(command)) {
         return VIEW_updateHint(hints['invalid-input'])
@@ -44,8 +46,9 @@ $(document).ready(function () {
     }
   })
 
-  $('#btn-logo').click(function (event) {
+  $('#btn-logo').dblclick(function (event) {
     shell.openExternal('https://github.com/sartrey/hydrion')
+    remote.getCurrentWindow().close()
   })
 
   $('#btn-close').click(function (event) {

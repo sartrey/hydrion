@@ -17,6 +17,7 @@ function loadCommands () {
     return JSON.parse(fs.readFileSync(p_cmdset, 'utf8'))
   } catch (error) {
     console.log('fail to load cmdset, try to rewrite one')
+    console.log(error)
     fs.writeFileSync(p_cmdset, JSON.stringify([], null, 2), 'utf8')
     return []
   }
@@ -27,10 +28,10 @@ module.exports = function createRunner() {
 }
 
 function Runner(commands) {
-  if (Array.isArray(commands)) {
+  if (!Array.isArray(commands)) {
     this.commands = []
   } else {
-    this.commands = commands.map(e => {
+    this.commands = commands.map(function (e) {
       return {
         name: e.name,
         host: e.host,
@@ -45,14 +46,14 @@ Runner.prototype = {
 
   // todo: support param
   invoke: function (name, param) {
-    var command = this.commands.find(e => e.name === name)
+    var command = this.commands.find(function (e) {
+      return e.name === name
+    })
     if (command) {
       if (command.host === 'electron') {
         if (config.host.electron) {
-          child_process.execSync(
-            'electron ' + command.exec,
-            { cwd: config.host.electron }
-          )
+          console.log(config.host.electron + ' ' + command.exec)
+          child_process.exec(config.host.electron + ' ' + command.exec)
           return { state: true, reply: 'command invoked' }
         } else {
           return { state: false, error: 'electron not found' }
