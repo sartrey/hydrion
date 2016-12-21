@@ -39,19 +39,22 @@ Router.prototype = {
       return e.name === name
     })
     if (route) {
+      var window
       if (route.only && route.hwnd.length > 0) {
-        return route.hwnd[0]
+        window = route.hwnd[0]
+        window.focus()
+        return window
       }
       var meta = require(path.join(route.path, 'index.meta.js'))
-      var window = createWindow(
+      window = createWindow(
         meta.define,
         'file://' + path.join(route.path, 'index.html'),
         meta.binder
       )
-      route.hwnd.push(window)
       window.on('closed', function () {
         route.hwnd.splice(route.hwnd.indexOf(window), 1)
       })
+      route.hwnd.push(window)
       return window
     }
   },

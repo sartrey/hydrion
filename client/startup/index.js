@@ -3,7 +3,7 @@ const {
   remote
 } = require('electron')
 
-window.$ = require('jquery')
+window.$ = require('../../vendor/js/jquery.min.js')
 
 const hints = {
   'how-to-invoke': 'hint: press <enter> to invoke',
@@ -51,7 +51,12 @@ $(document).ready(function () {
     remote.getCurrentWindow().close()
   })
 
-  $('#btn-close').click(function (event) {
+  $('#btn-apps').click(function (event) {
+    bridge.router.routeTo('applist')
+    remote.getCurrentWindow().close()
+  })
+
+  $('#btn-exit').click(function (event) {
     remote.getCurrentWindow().close()
   })
 })

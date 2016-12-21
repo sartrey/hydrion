@@ -60,44 +60,13 @@ html {
   color: #39f;
 }
 
-.search {
-  display: flex;
-  flex-direction: column;
+.commands {
+  height: 20rem;
+  border: 1px solid #ccc;
+  margin-bottom: .5rem;
 }
 
-.search input {
-  display: block;
-  font-size: 1.8rem;
-  padding: .5rem;
-  outline: none;
-  border-radius: 1px;
-  border: 2px solid #ccc;
-  transition: .3s;
-}
-
-.search input:hover {
-  border-color: #bcd;
-  box-shadow: 0 0 3px rgba(0,50,250,0.1);
-}
-
-.search input:focus {
-  border-color: #6af;
-  box-shadow: 0 0 6px rgba(0,50,250,0.3);
-}
-
-.search .label {
-  display: flex;
-  flex-direction: row;
-  font-size: 1.2rem;
-  margin-top: .5rem;
-}
-
-.search .label .hint {
-  flex: 1;
-  color: #666;
-}
-
-.search .label .stat {
-  flex: 0;
-  color: #39f;
+.electron {
+  height: 20rem;
+  border: 1px solid #ccc;
 }

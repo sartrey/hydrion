@@ -1,9 +1,8 @@
 module.exports = {
   define: {
-    width: 600, height: 200,
+    width: 600, height: 800, 
     maximizable: false,
     frame: false,
-    transparent: true,
-    alwaysOnTop: true
+    transparent: true
   }
 }
