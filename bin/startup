@@ -11,7 +11,7 @@ h_dir() {
 }
 
 h_ver() {
-  echo "1.4.9"
+  echo "5.0.6"
 }
 
 h_get_os() {
@@ -25,27 +25,24 @@ h_get_os() {
   echo $H_OS
 }
 
-h_source() {
-  # 1 for ver, 2 for os
-  echo "https://npm.taobao.org/mirrors/electron/$1/"
-}
-
 h_startup() {
   local ELECTRON_TARGET_DIR=$(h_dir)/electron/$(h_ver)
   if [ $(h_get_os) = "darwin" ]; then
     "$ELECTRON_TARGET_DIR/Electron.app/Contents/MacOS/Electron" $1 > /dev/null &
   else
-    "$ELECTRON_TARGET_DIR/electron/electron" $1 > /dev/null &
+    "$ELECTRON_TARGET_DIR/electron" $1 > /dev/null &
   fi
   echo "hydrion startup"
 }
 
-if [ $1 = "dev" ]; then
-  echo "develop version"
+if [ -z $HYDRION_ENV ]; then
+  HYDRION_ENV="prod"
+fi
+if [ $HYDRION_ENV == "test" ]; then
+  # try to enter test mode
   h_startup $(pwd)
 else
-  HYDRION_SOURCE=$(h_dir)/source
-  h_startup $HYDRION_SOURCE
+  h_startup $(h_dir)/source
 fi
 
 }
